@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: Demo
+  profiles:
+    active: '@active.profile@'
+  datasource:
+    password: ${springDatasourcePassword}
+    url: jdbc:postgress://${DBHost}:${DBPort:3306}/ecommerce?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=Casablanca/Morocco
+    username: ${springDatasourceUsername}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+      #database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
+    database: mysql
+  data:
+    redis:
+      username: ${redisUsername}
+      password: ${redisPassword}
+      host: ${redisHost}
+      port: ${redisPort:6379}
+  session:
+    store-type: redis
+  sendgrid:
+    api-key: ${springMailPassword}
+#  resources:
+#   http:
+#    encoding:
+    # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly.
+    # charset: UTF-8
+    # Enable http encoding support.
+    #           enabled: true
+    # Force the encoding to the configured charset on HTTP requests and responses.
+  #            force: true
+  main:
+    banner-mode: OFF
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-ignored-properties: false
+    mapper:
+      accept-case-insensitive-properties: true
+  thymeleaf:
+    cache: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    hiddenmethod:
+      filter:
+        enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1GB
+      max-request-size: 1GB
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 120
+          must-revalidate: true
+      chain:
+        cache: true
+server:
+  max-http-request-header-size: 20000
+  port: ${port:8083}
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  http2:
+    enabled: true
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    session:
+      cookie:
+        http-only: true
+        secure: true
+  error:
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+  tomcat:
+    max-http-form-post-size: 100000000
+sentry:
+  dsn: ${sentryDsn}
+  send-default-pii: true
+

@@ -1,0 +1,4 @@
+sentry:
+  environment: production
+  # We recommend adjusting this value in production.
+  traces-sample-rate: 1.0
